@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  SecondViewController.swift
 //  LED Controller
 //
 //  Created by Alex Luke on 3/11/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class AlarmController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
