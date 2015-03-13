@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBCentralManagerDelegate,
     var btManager: CBCentralManager?
     var currentAlert: UIAlertView?
     var peripheral: CBPeripheral?
-    var rxCharacteristic: CBCharacteristic?
+    var txCharacteristic: CBCharacteristic?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
@@ -82,15 +82,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBCentralManagerDelegate,
     }
     
     func peripheral(peripheral: CBPeripheral!, didDiscoverServices error: NSError!) {
+        NSLog("Discovered %d services", peripheral.services.count)
+        
         // Only interested in sending data at the moment
-        peripheral.discoverCharacteristics([CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")], forService: peripheral.services[0] as CBService)
+        peripheral.discoverCharacteristics([CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")], forService: peripheral.services[0] as CBService)
     }
     
     func peripheral(peripheral: CBPeripheral!, didDiscoverCharacteristicsForService service: CBService!, error: NSError!) {
-        rxCharacteristic =  service.characteristics[0] as? CBCharacteristic
+        NSLog("Discovered %d characteristics", service.characteristics.count)
+        
+        txCharacteristic =  service.characteristics[0] as? CBCharacteristic
         
         // Finally done connecting
         currentAlert?.dismissWithClickedButtonIndex(0, animated: true)
+    }
+    
+    func writeData(data: NSData) {
+        NSLog("Sending %d bytes", data.length)
+        
+        peripheral?.writeValue(data, forCharacteristic: txCharacteristic, type: CBCharacteristicWriteType.WithoutResponse)
     }
 }
 

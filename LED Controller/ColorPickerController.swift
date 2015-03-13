@@ -33,6 +33,28 @@ class ColorPickerController: UIViewController, RSColorPickerViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    func changeColor() {
+        self.updatePreview()
+        
+        var color = colorPicker.selectionColor
+        var brightness = CGFloat(brightnessSlider.value)
+        
+        color = color.colorWithAlphaComponent(brightness)
+        
+        let components = CGColorGetComponents(color.CGColor)
+        var bytes: [Byte] = []
+        bytes.append(0x43)
+        
+        for i in 0...3 {
+            let f = Float(components[i] * 255)
+            let a = Byte(lroundf(f))
+            bytes.append(a)
+        }
+        
+        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.writeData(NSData(bytes: bytes, length: bytes.count))
+    }
+    
     func updatePreview() {
         var color = colorPicker.selectionColor
         var brightness = brightnessSlider.value
@@ -43,10 +65,10 @@ class ColorPickerController: UIViewController, RSColorPickerViewDelegate {
     }
     
     func colorPickerDidChangeSelection(cp: RSColorPickerView!) {
-        self.updatePreview()
+        self.changeColor()
     }
     
     @IBAction func brightnessChanged(sender: UISlider) {
-        self.updatePreview()
+        self.changeColor()
     }
 }
