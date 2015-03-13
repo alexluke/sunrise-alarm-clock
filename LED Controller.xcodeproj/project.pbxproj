@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B5FA7FBFBADB289BBB8FBF68 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4DFFE2609B83FF51F6DFEC /* libPods.a */; };
+		FA2ED59E1AB2410E00E293AB /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2ED59D1AB2410E00E293AB /* CoreBluetooth.framework */; };
 		FA96818F1AB1109300F2C9CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA96818E1AB1109300F2C9CE /* AppDelegate.swift */; };
 		FA9681911AB1109300F2C9CE /* ColorPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9681901AB1109300F2C9CE /* ColorPickerController.swift */; };
 		FA9681931AB1109300F2C9CE /* AlarmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9681921AB1109300F2C9CE /* AlarmController.swift */; };
@@ -32,6 +33,7 @@
 		8E4DFFE2609B83FF51F6DFEC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FFEA98EA6A8608CADB5A30F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		FA2ED59C1AB1596500E293AB /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		FA2ED59D1AB2410E00E293AB /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		FA9681891AB1109300F2C9CE /* LED Controller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LED Controller.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA96818D1AB1109300F2C9CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA96818E1AB1109300F2C9CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA2ED59E1AB2410E00E293AB /* CoreBluetooth.framework in Frameworks */,
 				B5FA7FBFBADB289BBB8FBF68 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,6 +79,7 @@
 		92FE260CAC01B4F7532A7461 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA2ED59D1AB2410E00E293AB /* CoreBluetooth.framework */,
 				8E4DFFE2609B83FF51F6DFEC /* libPods.a */,
 			);
 			name = Frameworks;
