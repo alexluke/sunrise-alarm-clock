@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBCentralManagerDelegate,
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func centralManagerDidUpdateState(central: CBCentralManager!) {
+    func centralManagerDidUpdateState(central: CBCentralManager) {
         if (central.state == CBCentralManagerState.PoweredOn) {
             currentAlert = UIAlertView(title: "Connecting...", message: nil, delegate: self, cancelButtonTitle: nil)
             currentAlert?.show()
@@ -61,15 +61,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBCentralManagerDelegate,
         }
     }
 
-    func centralManager(central: CBCentralManager!, didDiscoverPeripheral peripheral: CBPeripheral!, advertisementData: [NSObject : AnyObject]!, RSSI: NSNumber!) {
+    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
         NSLog("Discovered peripheral")
         central.stopScan()
         
         self.peripheral = peripheral
-        central.connectPeripheral(self.peripheral, options: nil)
+        central.connectPeripheral(self.peripheral!, options: nil)
     }
     
-    func centralManager(central: CBCentralManager!, didConnectPeripheral peripheral: CBPeripheral!) {
+    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
         NSLog("Connected!")
         peripheral.delegate = self
         
@@ -77,21 +77,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBCentralManagerDelegate,
         
     }
     
-    func centralManager(central: CBCentralManager!, didFailToConnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
-        NSLog("Error connecting: %s", error)
+    func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+        NSLog("Error connecting: %s", error!)
     }
     
-    func peripheral(peripheral: CBPeripheral!, didDiscoverServices error: NSError!) {
-        NSLog("Discovered %d services", peripheral.services.count)
+    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+        NSLog("Discovered %d services", peripheral.services!.count)
         
         // Only interested in sending data at the moment
-        peripheral.discoverCharacteristics([CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")], forService: peripheral.services[0] as CBService)
+        peripheral.discoverCharacteristics([CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")], forService: peripheral.services![0] as CBService)
     }
     
-    func peripheral(peripheral: CBPeripheral!, didDiscoverCharacteristicsForService service: CBService!, error: NSError!) {
-        NSLog("Discovered %d characteristics", service.characteristics.count)
+    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
+        NSLog("Discovered %d characteristics", service.characteristics!.count)
         
-        txCharacteristic =  service.characteristics[0] as? CBCharacteristic
+        txCharacteristic = service.characteristics![0]
         
         // Finally done connecting
         currentAlert?.dismissWithClickedButtonIndex(0, animated: true)
@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBCentralManagerDelegate,
     func writeData(data: NSData) {
         NSLog("Sending %d bytes", data.length)
         
-        peripheral?.writeValue(data, forCharacteristic: txCharacteristic, type: CBCharacteristicWriteType.WithoutResponse)
+        peripheral?.writeValue(data, forCharacteristic: txCharacteristic!, type: CBCharacteristicWriteType.WithoutResponse)
     }
 }
 

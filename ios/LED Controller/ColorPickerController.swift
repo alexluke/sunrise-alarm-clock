@@ -19,12 +19,12 @@ class ColorPickerController: UIViewController, RSColorPickerViewDelegate {
         
         colorPicker.delegate = self
         
-        var colorPreviewLayer = CALayer()
+        let colorPreviewLayer = CALayer()
         previewPatch.layer.addSublayer(colorPreviewLayer)
     }
     
     override func viewDidLayoutSubviews() {
-        var sublayer = previewPatch.layer.sublayers[0] as CALayer
+        let sublayer = previewPatch.layer.sublayers![0]
         sublayer.frame = CGRect(origin: CGPointZero, size: previewPatch.frame.size)
     }
 
@@ -37,29 +37,29 @@ class ColorPickerController: UIViewController, RSColorPickerViewDelegate {
         self.updatePreview()
         
         var color = colorPicker.selectionColor
-        var brightness = CGFloat(brightnessSlider.value)
+        let brightness = CGFloat(brightnessSlider.value)
         
         color = color.colorWithAlphaComponent(brightness)
         
         let components = CGColorGetComponents(color.CGColor)
-        var bytes: [Byte] = []
+        var bytes: [UInt8] = []
         bytes.append(0x43)
         
         for i in 0...3 {
             let f = Float(components[i] * 255)
-            let a = Byte(lroundf(f))
+            let a = UInt8(lroundf(f))
             bytes.append(a)
         }
         
-        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.writeData(NSData(bytes: bytes, length: bytes.count))
     }
     
     func updatePreview() {
-        var color = colorPicker.selectionColor
-        var brightness = brightnessSlider.value
+        let color = colorPicker.selectionColor
+        let brightness = brightnessSlider.value
         
-        var sublayer = previewPatch.layer.sublayers[0] as CALayer
+        let sublayer = previewPatch.layer.sublayers![0]
         sublayer.backgroundColor = color.CGColor
         sublayer.opacity = brightness
     }
