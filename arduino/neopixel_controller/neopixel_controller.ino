@@ -4,7 +4,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <Adafruit_BLE_UART.h>
 
-#define NEOPIXEL_PIN 6
+#define NEOPIXEL_PIN 5
 #define NEOPIXEL_COUNT 180
 #define BLE_RDY 3
 #define BLE_RST 9
