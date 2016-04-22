@@ -35,7 +35,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZYi-Rb-cdg">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZYi-Rb-cdg">
                                 <rect key="frame" x="241" y="257" width="118" height="31"/>
                                 <connections>
                                     <action selector="brightnessChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="2Qt-bg-0LG"/>
