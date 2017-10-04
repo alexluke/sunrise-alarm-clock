@@ -25,7 +25,7 @@ class ColorPickerController: UIViewController, RSColorPickerViewDelegate {
     
     override func viewDidLayoutSubviews() {
         let sublayer = previewPatch.layer.sublayers![0]
-        sublayer.frame = CGRect(origin: CGPointZero, size: previewPatch.frame.size)
+        sublayer.frame = CGRect(origin: CGPoint.zero, size: previewPatch.frame.size)
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,20 +39,20 @@ class ColorPickerController: UIViewController, RSColorPickerViewDelegate {
         var color = colorPicker.selectionColor
         let brightness = CGFloat(brightnessSlider.value)
         
-        color = color.colorWithAlphaComponent(brightness)
+        color = color?.withAlphaComponent(brightness)
         
-        let components = CGColorGetComponents(color.CGColor)
+        let components = (color?.cgColor)?.components
         var bytes: [UInt8] = []
         bytes.append(0x43)
         
         for i in 0...3 {
-            let f = Float(components[i] * 255)
+            let f = Float((components?[i])! * 255)
             let a = UInt8(lroundf(f))
             bytes.append(a)
         }
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.writeData(NSData(bytes: bytes, length: bytes.count))
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.writeData(Data(bytes: UnsafePointer<UInt8>(bytes), count: bytes.count))
     }
     
     func updatePreview() {
@@ -60,15 +60,15 @@ class ColorPickerController: UIViewController, RSColorPickerViewDelegate {
         let brightness = brightnessSlider.value
         
         let sublayer = previewPatch.layer.sublayers![0]
-        sublayer.backgroundColor = color.CGColor
+        sublayer.backgroundColor = color?.cgColor
         sublayer.opacity = brightness
     }
     
-    func colorPickerDidChangeSelection(cp: RSColorPickerView!) {
+    func colorPickerDidChangeSelection(_ cp: RSColorPickerView!) {
         self.changeColor()
     }
     
-    @IBAction func brightnessChanged(sender: UISlider) {
+    @IBAction func brightnessChanged(_ sender: UISlider) {
         self.changeColor()
     }
 }
